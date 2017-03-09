@@ -3,6 +3,14 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      basic: {
+        src: ['public/client/**/*.js'],
+        dest: 'public/dist/concat-client.js'       
+      }, 
+      extras: {
+        src: ['public/lib/**/*.js'],
+        dest: 'public/dist/concat-lib.js' 
+      }
     },
 
     mochaTest: {
@@ -21,15 +29,28 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      yourTask: {
+        src: 'public/dist/concat-client.js',
+        dest: 'public/dist/uglified-client.js'
+      },
+      yourOtherTask: {
+        src: 'public/dist/concat-lib.js',
+        dest: 'public/dist/uglified-lib.js'
+      }
     },
 
     eslint: {
       target: [
         // Add list of files to lint here
+        'public/*.js'
       ]
     },
 
     cssmin: {
+      basic: {
+        src: 'public/style.css',
+        dest: 'public/dist/style.min.css'
+      }
     },
 
     watch: {
@@ -91,5 +112,5 @@ module.exports = function(grunt) {
     // add your deploy tasks here
   ]);
 
-
+  grunt.registerTask('default', ['cssmin']);
 };
