@@ -1,11 +1,7 @@
 var db = require('../config');
 var crypto = require('crypto');
 
-var Link = db.Model.extend({
-  tableName: 'urls',
-  hasTimestamps: true,
-  defaults: {
-    visits: 0
+var Link = db.Model.extend( 
   },
   initialize: function() {
     this.on('creating', function(model, attrs, options) {
@@ -13,6 +9,9 @@ var Link = db.Model.extend({
       shasum.update(model.get('url'));
       model.set('code', shasum.digest('hex').slice(0, 5));
     });
+  },
+  remove: function () {
+
   }
 });
 

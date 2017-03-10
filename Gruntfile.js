@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         dest: 'public/dist/concat-client.js'       
       }, 
       extras: {
-        src: ['public/lib/**/*.js'],
+        src: ['public/lib/underscore.js', 'public/lib/jquery.js', 'public/lib/backbone.js', 'public/lib/handlebars.js'],
         dest: 'public/dist/concat-lib.js' 
       }
     },
@@ -108,9 +108,13 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
+  grunt.registerTask('deploy', function(n) {
+    if (grunt.option('prod')) {
+      // add your production server task here
+    } else {
+      grunt.task.run(['concat', 'cssmin', 'uglify']);
+    }
+  });
 
-  grunt.registerTask('default', ['cssmin']);
+  // grunt.registerTask('default', ['cssmin']);
 };
